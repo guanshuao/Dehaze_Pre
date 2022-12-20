@@ -1,0 +1,120 @@
+\documentclass[UTF8, xcolor=table]{beamer} 
+\usepackage[BoldFont,SlantFont]{xeCJK} %使用中文
+\setCJKmainfont[BoldFont={SimHei},ItalicFont={KaiTi}]{SimSun} 
+\setCJKsansfont{SimHei} 
+\setCJKfamilyfont{nwpulogo}{nwpulogo.ttf}     	% 含"西北工业大学"logo字体 
+\usepackage{latexsym,amssymb,amsmath,amsbsy,amsopn,amstext,xcolor,multicol}
+\usepackage{graphicx,wrapfig,fancybox}
+\usepackage{float}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{nwpubeamer}
+\usepackage[backend=bibtex,sorting=none]{biblatex} 
+\usepackage{array} 
+\usepackage{bm} 
+\usepackage{caption} 
+\usepackage[caption=false,font=scriptsize]{subfig}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{animate}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{systeme,mathtools}
+\usepackage{verbatim}
+\definecolor{npu-blue}{RGB}{35, 104, 177}
+\definecolor{npu-blue-gray}{RGB}{229, 237, 246}
+
+\defbibheading{bibliography}[\bibname]{} %avoid printbibliography 自动生成目录
+\addbibresource{ref/papers-bib-in-google.bib}
+\addbibresource{ref/chinese-ref.bib}
+\setbeamertemplate{bibliography item}[text] % [ref](http://tex.stackexchange.com/questions/68080/beamer-bibliography-icon)
+\usepackage{boxedminipage} %for: bvh border
+\def\fourgraphicswidth{0.35} %0.3\textwidth
+
+\usepackage{algorithm} %%format of the algorithm
+\usepackage{algpseudocode}
+\floatname{algorithm}{算法}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}} %%Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{\textbf{输出:}} %%UseOutput in the format of Algorithm
+%\algrenewcommand{\algorithmiccomment}[1]{\hskip3em $\rightarrow$ #1}
+\algrenewcommand{\algorithmiccomment}[1]{ $//$ #1}
+
+\usepackage{listings}
+\renewcommand\lstlistingname{代码}
+\renewcommand\lstlistlistingname{代码}
+
+\lstset{framexleftmargin=1.4em,
+        xleftmargin=1.8em,
+        basicstyle=\ttfamily\small,
+        %frame=shadowbox, numberstyle=\tiny, breaklines=true,
+        frame=single,
+        numberstyle=\tiny, breaklines=true,
+        keywordstyle=\color{npu-blue}\bfseries,
+        %commentstyle=\color{red!50!green!50!blue!50},
+        rulesepcolor=\color{npu-blue-gray},
+        numbers=none,fontadjust=true}
+\lstdefinelanguage{shader}{morekeywords={uniform, layout, uniform, vec2, vec3, vec4, in, out, gl_Position, dot, flat, int ,float, gl_VertexID, xyz, w, x, y, z, location, version, sampler2DRect, bgr, gl_FragData, texture2DRect, gl_TexCoord,for,xy},morecomment=[l]{//}}
+
+
+\begin{document}
+
+\setbeamerfont{footnote}{size=\tiny}
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{subsection in toc}{size=\footnotesize}
+\renewcommand*{\bibfont}{\footnotesize}
+\graphicspath{{figures/}}
+
+
+\title{\textbf{图像去雾算法分析}}
+\author[敖冠舒~叶昊宇]{
+  《数学欣赏》课程报告
+  \vskip 20pt 电子信息学院~敖冠舒
+  \vskip 5pt 数学与统计学院~叶昊宇
+  \vskip 20pt \textbf{指导教师：张胜贵~教授}}
+\institute{\small \vskip 50pt西北工业大学}
+\date[\today]{\small \vskip -17pt \today}
+ 
+
+%校徽
+\frame{
+\vspace{-15mm}
+\titlepage
+\vspace{-43mm}
+\centering
+\begin{figure}[!]
+    \begin{minipage}[c]{2cm}  
+    \resizebox{!}{1cm}{%
+    \parbox{0.54cm}{\input{source/nwpu_logo.tex}}
+    }
+    \end{minipage}
+  \end{figure}
+}
+
+
+  \section*{目录}
+  \frame {
+    \frametitle{\secname}
+    \tableofcontents
+  }
+
+  \AtBeginSubsection[] %目录页不计算页码
+  {
+  \frame<handout:0>  
+  {
+  \frametitle{目录}
+  \tableofcontents[current,currentsubsection]
+  }
+    \addtocounter{framenumber}{-1}  %目录页不计算页码
+  }
+
+  \include{p1_intro.tex}
+  \include{p2_enhance.tex}
+  \include{p3_physical.tex}
+  \include{p4_dl.tex}
+  \include{p5_summary.tex}
+  
+\end{document}
+
